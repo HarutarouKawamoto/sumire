@@ -44,7 +44,7 @@ SumiRE（すみぃれ）は、**自分のフォルダのコードを、そのま
 
 ### HanaME と SumiRE
 
-[HanaME（花見）](https://github.com/HarutarouKawamoto/haname) と対になるツールです。
+同じ作者の HanaME（花見）と対になるツールです。
 
 | | HanaME（花見） | SumiRE（墨入れ / 菫） |
 |---|---|---|
@@ -233,4 +233,4 @@ docs/images/             README の画像
 
 ## ライセンス
 
-MIT
+[MIT](LICENSE)
