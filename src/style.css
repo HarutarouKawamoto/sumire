@@ -1,0 +1,698 @@
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* VS Code Dark+ (Modern) ベースの配色 */
+  --bg-main: #1e1e1e;
+  --bg-surface: #252526;
+  --bg-pager: #1c1d21;
+  --bg-statusbar: #18181b;
+  --bg-active-line: #282d35;
+  --bg-active-line-typo: #362226;
+  --bg-hover-line: rgba(255, 255, 255, 0.03);
+  --border-subtle: #333337;
+  --border-control: #45454d;
+
+  --text-strong: #ffffff;
+  --text-typed: #d4d4d4;
+  --text-indent-guide: #3b3b3b;
+  --text-comment-skipped: #6a9955;
+  --text-muted: #9da5b4;
+  --text-line-num: #6e7681;
+  --text-status: #cccccc;
+
+  /* VS Code Dark+ シンタックスハイライト色 */
+  --syn-keyword: #c586c0;      /* export, import, return, if, for, await */
+  --syn-storage: #569cd6;      /* const, let, function, interface, async, boolean */
+  --syn-string: #ce9178;       /* '...', "..." */
+  --syn-number: #b5cea8;       /* 123, true, false */
+  --syn-type: #4ec9b0;         /* TaskContext, Promise, Map */
+  --syn-function: #dcdcaa;     /* runHarnessStep, stepFn */
+  --syn-property: #9cdcfe;     /* maxRetries */
+  --syn-variable: #9cdcfe;     /* ctx, attempt, ok */
+  --syn-operator: #d4d4d4;     /* =, <=, ++, => */
+  --syn-punctuation: #ffd700;  /* (), {}, [] 等 */
+  --syn-comment: #6a9955;      /* // comment */
+
+  /* SumiRE（菫・バイオレット）アクセントカラー */
+  --accent-primary: #a87ffb;
+  --accent-primary-hover: #be9eff;
+  --accent-primary-fg: #111116;
+  --accent-ready-enter: #4ec9b0;
+  --cursor-bg: rgba(168, 127, 251, 0.22);
+  --typo-fg: #ff7b72;
+  --typo-bg: rgba(248, 81, 73, 0.32);
+
+  /* VS Code 風フラット半透明スクロールバー色（ダーク） */
+  --scrollbar-thumb: rgba(121, 121, 121, 0.28);
+  --scrollbar-thumb-hover: rgba(145, 145, 145, 0.48);
+  --scrollbar-thumb-active: rgba(170, 170, 170, 0.62);
+
+  --ghost-opacity: 0.38;
+
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+}
+
+/* =========================================================
+   ライトモード（VS Code Light+ Modern ベース）
+   ========================================================= */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --bg-main: #ffffff;
+  --bg-surface: #f3f3f3;
+  --bg-pager: #eaeaea;
+  --bg-statusbar: #ececec;
+  --bg-active-line: #f0f6fc;
+  --bg-active-line-typo: #ffebe9;
+  --bg-hover-line: rgba(0, 0, 0, 0.03);
+  --border-subtle: #e0e0e0;
+  --border-control: #c8c8c8;
+
+  --text-strong: #1f2328;
+  --text-typed: #1f2328;
+  --text-indent-guide: #d8dee4;
+  --text-comment-skipped: #008000;
+  --text-muted: #57606a;
+  --text-line-num: #8c959f;
+  --text-status: #3b3b3b;
+
+  /* VS Code Light+ シンタックスハイライト色 */
+  --syn-keyword: #af00db;      /* export, import, return, if, for, await */
+  --syn-storage: #0000ff;      /* const, let, function, interface, async */
+  --syn-string: #a31515;       /* '...', "..." */
+  --syn-number: #098658;       /* 123, true, false */
+  --syn-type: #267f99;         /* TaskContext, Promise, Map */
+  --syn-function: #795e26;     /* runHarnessStep, stepFn */
+  --syn-property: #001080;     /* maxRetries */
+  --syn-variable: #001080;     /* ctx, attempt, ok */
+  --syn-operator: #3b3b3b;     /* =, <=, ++, => */
+  --syn-punctuation: #0431fa;  /* (), {}, [] 等 */
+  --syn-comment: #008000;      /* // comment */
+
+  /* SumiRE（菫・ディープバイオレット）ライトモード用アクセント */
+  --accent-primary: #7c4dff;
+  --accent-primary-hover: #6535e8;
+  --accent-primary-fg: #ffffff;
+  --accent-ready-enter: #1a7f37;
+  --cursor-bg: rgba(124, 77, 255, 0.16);
+  --typo-fg: #cf222e;
+  --typo-bg: rgba(255, 129, 130, 0.35);
+
+  /* VS Code 風フラット半透明スクロールバー色（ライト） */
+  --scrollbar-thumb: rgba(100, 100, 100, 0.25);
+  --scrollbar-thumb-hover: rgba(100, 100, 100, 0.45);
+  --scrollbar-thumb-active: rgba(80, 80, 80, 0.6);
+
+  --ghost-opacity: 0.34;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* Firefox向けスリム・半透明スクロールバー指定 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+/* =========================================================
+   VS Code 風カスタムスクロールバー（背景透過・フラットデザイン）
+   ========================================================= */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 0px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-thumb-active);
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-main);
+  color: var(--text-typed);
+  font-family: var(--font-sans);
+  /* 画面サイズ・ズーム倍率に関わらず破綻しない流体ベースサイズ（標準時で150%相当の大きさ） */
+  font-size: clamp(15px, 1.15vw + 10px, 20px);
+  overflow: hidden;
+  user-select: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* =========================================================
+   トップバー（ウィンドウ幅を変えても絶対に崩れないレイアウト）
+   ========================================================= */
+.topbar {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1.1rem;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.brand-and-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+}
+
+/* ノート式ページめくりナビゲーション */
+.note-pager {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--bg-pager);
+  border: 1px solid var(--border-control);
+  border-radius: 7px;
+  padding: 0.12rem 0.22rem;
+  min-width: 0;
+}
+
+.pager-select-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0 0.35rem;
+  min-width: 0;
+}
+
+.page-counter {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-primary);
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.file-select {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-typed);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  max-width: 260px;
+  text-overflow: ellipsis;
+}
+
+.file-select option {
+  background-color: var(--bg-surface);
+  color: var(--text-typed);
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 1.2rem;
+  background-color: var(--border-subtle);
+  margin: 0 0.2rem;
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   Lucide アイコン専用ボタン（文字なし・記号のみ）
+   ========================================================= */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border-radius: 6px;
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.14s, color 0.14s, border-color 0.14s;
+}
+
+.icon-btn svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background-color: var(--bg-hover-line);
+  color: var(--text-strong);
+  border-color: var(--border-control);
+}
+
+.icon-btn:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+/* トグルボタンが ON (is-active) のときの状態 */
+.icon-btn.is-active {
+  color: var(--accent-primary);
+  background-color: var(--cursor-bg);
+  border-color: rgba(168, 127, 251, 0.35);
+}
+
+/* ファイルを開く等のプライマリアイコンボタン */
+.icon-btn-primary {
+  background-color: var(--accent-primary);
+  color: var(--accent-primary-fg);
+}
+
+.icon-btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-primary-hover);
+  color: var(--accent-primary-fg);
+  border-color: transparent;
+}
+
+.pager-btn {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   VS Code 風の極小ボトムステータスバー（右下に小さく進行度を表示）
+   ========================================================= */
+.vscode-statusbar {
+  flex-shrink: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.65rem;
+  background-color: var(--bg-statusbar);
+  border-top: 1px solid var(--border-subtle);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 24px;
+  color: var(--text-status);
+  gap: 0.75rem;
+  min-width: 0;
+  user-select: none;
+}
+
+.vs-status-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.vs-status-right {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.vs-status-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-status);
+  white-space: nowrap;
+}
+
+.vs-status-hint {
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.vs-status-hint.warn {
+  color: var(--typo-fg);
+}
+
+.vs-status-hint.done {
+  color: var(--accent-ready-enter);
+}
+
+.vs-kbd-guide {
+  color: var(--text-muted);
+}
+
+.vs-progress-item {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  color: var(--text-strong);
+  padding: 0 0.25rem;
+}
+
+.vs-lucide-check {
+  width: 13px;
+  height: 13px;
+  margin-right: 0.15rem;
+  color: var(--text-status);
+}
+
+.vs-progress-item.is-complete .vs-lucide-check,
+#hud-percent-num.is-complete {
+  color: var(--accent-ready-enter);
+}
+
+.vs-mini-bar {
+  width: 44px;
+  height: 5px;
+  background-color: var(--border-control);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-left: 0.25rem;
+}
+
+.vs-mini-bar-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--accent-primary);
+  transition: width 0.15s ease-out;
+}
+
+/* 狭いウィンドウ（画面半分分割など）のときのレスポンシブ調整 */
+@media (max-width: 900px) {
+  .vs-kbd-guide,
+  #hud-char-detail {
+    display: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .topbar {
+    flex-wrap: wrap;
+    padding: 0.45rem 0.85rem;
+    gap: 0.45rem;
+  }
+  .controls {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.1rem;
+  }
+  .brand-title {
+    font-size: 0.92rem;
+  }
+}
+
+/* =========================================================
+   エディタ・コードシート本体（長文行やウィンドウ縮小でも背景が途切れない設計）
+   ========================================================= */
+.editor-container {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: auto;
+  /* 最下部行でも一番上に固定スクロールできるよう下部に十分な余白（82vh）を確保 */
+  padding: 0.4rem 0 82vh 0;
+  outline: none;
+}
+
+.code-sheet {
+  font-family: var(--font-mono);
+  /* 150%表示相当の大きく見やすいコード文字サイズを維持しつつ、極小ウィンドウでも破綻しない */
+  font-size: clamp(18px, 1.3vw + 11px, 23px);
+  line-height: 1.8;
+  /* 長いコード行で横スクロールが発生しても、アクティブ行の背景色が右端まで途切れないようにする */
+  min-width: 100%;
+  width: max-content;
+  display: block;
+}
+
+/* 1行ごとのレイアウト */
+.code-line {
+  display: flex;
+  align-items: baseline;
+  padding: 0.05rem 2rem 0.05rem 0;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+  min-width: 100%;
+}
+
+.code-line:hover {
+  background-color: var(--bg-hover-line);
+}
+
+.code-line.is-skipped {
+  cursor: default;
+  opacity: 0.72;
+}
+
+.code-line.is-active {
+  background-color: var(--bg-active-line);
+  border-left-color: var(--accent-primary);
+}
+
+.code-line.is-active.has-typo {
+  background-color: var(--bg-active-line-typo);
+  border-left-color: var(--typo-fg);
+}
+
+.line-num {
+  width: 3.6rem;
+  flex-shrink: 0;
+  text-align: right;
+  padding-right: 1.1rem;
+  color: var(--text-line-num);
+  font-size: 0.82em;
+  user-select: none;
+}
+
+.code-line.is-active .line-num {
+  color: var(--accent-primary);
+  font-weight: 700;
+}
+
+.line-content {
+  white-space: pre;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* インデント（自動スキップ領域） */
+.char-indent {
+  color: var(--text-indent-guide);
+}
+
+/* コメント・スキップ行 */
+.char-skipped-comment {
+  color: var(--text-comment-skipped);
+  font-style: italic;
+}
+
+/* =========================================================
+   VS Code シンタックスカラー定義（トークン種別ごと）
+   ========================================================= */
+.tok-keyword {
+  color: var(--syn-keyword);
+}
+.tok-storage {
+  color: var(--syn-storage);
+}
+.tok-string {
+  color: var(--syn-string);
+}
+.tok-number {
+  color: var(--syn-number);
+}
+.tok-type {
+  color: var(--syn-type);
+}
+.tok-function {
+  color: var(--syn-function);
+}
+.tok-property {
+  color: var(--syn-property);
+}
+.tok-variable {
+  color: var(--syn-variable);
+}
+.tok-operator {
+  color: var(--syn-operator);
+}
+.tok-punctuation {
+  color: var(--syn-punctuation);
+}
+.tok-comment {
+  color: var(--syn-comment);
+  font-style: italic;
+}
+
+/* ゴースト文字（まだ打っていない文字）：VS Codeのシンタックス色を保ったまま半透明にする */
+.char-ghost {
+  opacity: var(--ghost-opacity);
+}
+
+/* 正しく打鍵された文字：100%の不透明度でパキッと鮮やかに発色する */
+.char-correct {
+  opacity: 1;
+}
+
+/* タイプライター式：打ち間違えた文字（赤ハイライト） */
+.char-typo {
+  opacity: 1;
+  color: var(--typo-fg) !important;
+  background-color: var(--typo-bg);
+  border-bottom: 2px solid var(--typo-fg);
+  border-radius: 3px;
+}
+
+/* 現在のカーソル位置（これから打つ1文字）：少し明るくして縦バーを点滅 */
+.char-cursor {
+  position: relative;
+  opacity: 0.82;
+  background-color: var(--cursor-bg);
+}
+
+.char-cursor::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.08em;
+  bottom: 0.08em;
+  width: 2.5px;
+  background-color: var(--accent-primary);
+  animation: blink 1.05s step-end infinite;
+}
+
+/* 行末に到達して Enter 待ちのマーカー */
+.enter-marker {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.02rem 0.45rem;
+  font-size: 0.75em;
+  color: var(--text-line-num);
+  border-radius: 4px;
+}
+
+.enter-marker.is-ready {
+  color: #ffffff;
+  background-color: var(--accent-ready-enter);
+  font-weight: 700;
+}
+
+.enter-marker.is-blocked {
+  color: var(--typo-fg);
+  border: 1px dashed var(--typo-fg);
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ドラッグ＆ドロップオーバーレイ */
+.drop-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(18, 18, 20, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 1.5rem;
+}
+
+.drop-overlay.hidden {
+  display: none;
+}
+
+.drop-box {
+  border: 2px dashed var(--accent-primary);
+  background-color: var(--bg-surface);
+  padding: 2rem 3rem;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  color: var(--accent-primary);
+}
+
+.drop-logo {
+  height: 76px;
+  width: auto;
+  object-fit: contain;
+}
+
+.drop-box svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* ページがない・読み込み中・読み込み失敗のときの 1 行メッセージ */
+.sheet-message {
+  padding: 2em 1.5em;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+}

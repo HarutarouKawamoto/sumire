@@ -1,0 +1,3 @@
+# 改行を LF に揃える（bin/sumire.js の #! 行が Mac / Linux でも動くように）
+* text=auto eol=lf
+*.png binary

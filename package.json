@@ -1,0 +1,35 @@
+{
+  "name": "sumire",
+  "version": "0.3.0",
+  "private": true,
+  "description": "SumiRE（墨入れ / 菫）— コードを上からなぞって、指で覚えるローカルのタイピングノート",
+  "type": "module",
+  "bin": {
+    "sumire": "bin/sumire.js"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "dist/",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node bin/sumire.js",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "test": "node --test test/"
+  },
+  "engines": {
+    "node": "^22.23.4 || ^24.22.1 || >=26.12.1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ignore": "^7.0.14"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "lucide": "^1.16.0"
+  }
+}

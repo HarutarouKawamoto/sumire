@@ -1,0 +1,41 @@
+# 依存パッケージ
+node_modules/
+# dist/ は git に含める（clone してすぐ sumire コマンドが使えるように）
+
+# SumiRE / HanaME の作業フォルダ
+.sumire/
+.haname/
+
+# AI 関連の md（設計・開発ログ）は公開しない。README の画像（docs/images/）は含める
+docs/**/*.md
+
+# AI ツールの設定・指示のファイル
+.claude/
+.cursor/
+.windsurf/
+.codex/
+.gemini/
+.agents/
+.clinerules/
+.roo/
+.continue/
+.kiro/
+.junie/
+.amazonq/
+.augment/
+.opencode/
+.steering/
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+AGENT.md
+GEMINI.md
+.github/copilot-instructions.md
+.github/instructions/
+.github/prompts/
+.github/agents/
+.github/chatmodes/
+
+# OS
+.DS_Store
+Thumbs.db

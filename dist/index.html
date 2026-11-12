@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SumiRE — 墨入れ / 菫</title>
+    <link rel="icon" type="image/png" href="/sumire-logo.png" />
+    <script type="module" crossorigin src="/assets/index-CC4-hdtE.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CSaJakGs.css">
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <!-- トップバー（SumiRE ブランドロゴ ＆ Lucide アイコンツールバー） -->
+      <header class="topbar">
+        <div class="brand-and-nav">
+          <div class="brand" title="SumiRE（墨入れ / 菫）">
+            <img src="/sumire-logo.png" alt="SumiRE" class="brand-logo" />
+          </div>
+
+          <!-- 左右でノートのようにファイルを順番に移動できるページャー -->
+          <nav class="note-pager" aria-label="ファイルページ移動">
+            <button
+              id="btn-prev-page"
+              class="icon-btn pager-btn"
+              type="button"
+              title="前のファイルへ移動 (Alt + ←)"
+              aria-label="前のファイル"
+            >
+              <i data-lucide="chevron-left"></i>
+            </button>
+
+            <div class="pager-select-wrap">
+              <span id="page-counter" class="page-counter">1/5</span>
+              <select id="file-select" class="file-select" title="ノート内のファイル一覧から直接選択"></select>
+            </div>
+
+            <button
+              id="btn-next-page"
+              class="icon-btn pager-btn"
+              type="button"
+              title="次のファイルへ移動 (Alt + →)"
+              aria-label="次のファイル"
+            >
+              <i data-lucide="chevron-right"></i>
+            </button>
+          </nav>
+        </div>
+
+        <!-- アイコンのみの操作ボタン群 -->
+        <div class="controls">
+          <!-- 現在行を一番上に固定トグル（ピンアイコン） -->
+          <button
+            id="btn-pin-top"
+            class="icon-btn is-active"
+            type="button"
+            title="現在入力中の行を一番上に固定 (ON/OFF)"
+            aria-label="現在行を一番上に固定"
+            aria-pressed="true"
+          >
+            <i data-lucide="pin"></i>
+          </button>
+
+          <!-- コメント行スキップトグル（コメントスラッシュアイコン） -->
+          <button
+            id="btn-skip-comments"
+            class="icon-btn is-active"
+            type="button"
+            title="コメント行の自動スキップ (ON/OFF)"
+            aria-label="コメント行スキップ"
+            aria-pressed="true"
+          >
+            <i data-lucide="message-square-off"></i>
+          </button>
+
+          <!-- 打鍵音トグル（スピーカーアイコン） -->
+          <button
+            id="btn-sound"
+            class="icon-btn is-active"
+            type="button"
+            title="打鍵音 (ON/OFF)"
+            aria-label="打鍵音"
+            aria-pressed="true"
+          >
+            <span id="sound-icon-on"><i data-lucide="volume-2"></i></span>
+            <span id="sound-icon-off" class="hidden"><i data-lucide="volume-x"></i></span>
+          </button>
+
+          <span class="toolbar-divider"></span>
+
+          <!-- テーマ切り替えボタン（システム同期[SunMoon] / ダーク[Moon] / ライト[Sun]） -->
+          <button
+            id="btn-theme"
+            class="icon-btn"
+            type="button"
+            title="テーマ切り替え：システム同期 / ダーク / ライト"
+            aria-label="テーマ切り替え"
+          >
+            <span id="theme-icon-system"><i data-lucide="sun-moon"></i></span>
+            <span id="theme-icon-dark" class="hidden"><i data-lucide="moon"></i></span>
+            <span id="theme-icon-light" class="hidden"><i data-lucide="sun"></i></span>
+          </button>
+
+          <!-- 最初からやり直す（リセットアイコン） -->
+          <button
+            id="btn-reset"
+            class="icon-btn"
+            type="button"
+            title="最初からやり直す"
+            aria-label="最初からやり直す"
+          >
+            <i data-lucide="rotate-ccw"></i>
+          </button>
+
+          <span class="toolbar-divider"></span>
+
+          <!-- フォルダを開く（フォルダアイコン） -->
+          <label
+            for="folder-input"
+            class="icon-btn"
+            title="フォルダを開く（プロジェクト内のスクリプトを一括読み込み）"
+            aria-label="フォルダを開く"
+          >
+            <i data-lucide="folder-open"></i>
+          </label>
+          <input
+            type="file"
+            id="folder-input"
+            webkitdirectory
+            directory
+            multiple
+            hidden
+          />
+
+          <!-- ファイルを開く（コードファイルアイコン・アクセント強調） -->
+          <label
+            for="file-input"
+            class="icon-btn icon-btn-primary"
+            title="ファイルを開く"
+            aria-label="ファイルを開く"
+          >
+            <i data-lucide="file-code-2"></i>
+          </label>
+          <input
+            type="file"
+            id="file-input"
+            multiple
+            accept=".ts,.tsx,.js,.jsx,.mjs,.cjs,.py,.rs,.go,.java,.c,.cpp,.cs,.rb,.sh,.ps1,.sql,.json,.yaml,.yml,.css,.html,.md,.txt"
+            hidden
+          />
+        </div>
+      </header>
+
+      <!-- メインのゴーストなぞり書きエディタ領域（ドラッグ＆ドロップ対応） -->
+      <main id="editor-container" class="editor-container" tabindex="0">
+        <div id="drop-overlay" class="drop-overlay hidden">
+          <div class="drop-box">
+            <img src="/sumire-logo.png" alt="SumiRE" class="drop-logo" />
+            <i data-lucide="folder-down" class="drop-icon"></i>
+          </div>
+        </div>
+
+        <div id="code-sheet" class="code-sheet" aria-label="Code Tracing Sheet"></div>
+      </main>
+
+      <!-- VS Code風の極小ボトムステータスバー（右端に控えめな進行度 0%〜100% 表示） -->
+      <footer class="vscode-statusbar" aria-label="ステータスバー">
+        <div class="vs-status-left">
+          <span id="status-line-info" class="vs-status-item">Ln 1/1</span>
+          <span id="status-progress" class="vs-status-item">0/0</span>
+          <span id="status-hint" class="vs-status-item vs-status-hint"></span>
+        </div>
+
+        <div class="vs-status-right">
+          <span id="hud-char-detail" class="vs-status-item" title="入力済み文字数 / 打鍵対象文字数">0/0</span>
+          <div class="vs-status-item vs-progress-item" title="現在のファイルの墨入れ進行度 (0〜100%)">
+            <i data-lucide="check-check" class="vs-lucide-check"></i>
+            <span id="hud-percent-num">0</span><span>%</span>
+            <div class="vs-mini-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+              <div id="hud-progress-fill" class="vs-mini-bar-fill" style="width: 0%"></div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+  </body>
+</html>
