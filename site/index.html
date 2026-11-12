@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SumiRE（墨入れ／菫）— 作成済みコードを、上からなぞって、指で覚える</title>
+  <meta name="description" content="自分のプロジェクトのコードを、そのまま写経のお手本にするローカルのタイピングツール。薄く表示されたコードの上から打ち、打った文字に色を乗せていきます。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="SumiRE（墨入れ／菫）">
+  <meta property="og:description" content="作成済みコードを、上からなぞって、指で覚える。自分のフォルダのコードを写経のお手本にするタイピングツール。">
+  <meta property="og:image" content="https://harutaroukawamoto.github.io/sumire/images/og.jpg">
+  <meta property="og:url" content="https://harutaroukawamoto.github.io/sumire/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#f8f8f5">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&family=Kaisei+Tokumin:wght@500;700;800&display=swap">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">本文へ移動</a>
+
+  <header class="top">
+    <a class="mark" href="./" aria-label="SumiRE（墨入れ／菫）トップ">Sumi<span>RE</span></a>
+    <nav aria-label="ページ内">
+      <a href="#how">使い方</a>
+      <a href="#start">はじめかた</a>
+      <a href="https://github.com/HarutarouKawamoto/sumire">GitHub</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title" class="ink" aria-label="作成済みコードを、上からなぞって、指で覚える。">
+        <span class="ink-line" data-no="1">作成済みコードを、</span>
+        <span class="ink-line" data-no="2">上からなぞって、</span>
+        <span class="ink-line" data-no="3">指で覚える。</span>
+      </h1>
+      <div class="hero-body">
+        <p class="hero-lead">自分のプロジェクトのスクリプトを、そのまま写経のお手本にするタイピングツールです。フォルダで <code>sumire</code> と打つだけで、中のコードがノートのページになります。ファイルは読むだけで、書き換えません。</p>
+        <p class="hero-actions">
+          <a class="btn" href="#start">はじめかたを見る</a>
+          <a href="https://github.com/HarutarouKawamoto/sumire">GitHub でソースを見る</a>
+        </p>
+      </div>
+      <figure class="hero-shot shot">
+        <img src="images/typing.webp" width="2560" height="1520" alt="SumiRE の画面。打ち終えた行は色付きで、これから打つ行は薄く表示されている。29 行目の途中で 1 文字打ち間違え、その文字が赤く残っている" fetchpriority="high">
+      </figure>
+    </section>
+
+    <section class="problem" aria-labelledby="problem-title">
+      <h2 id="problem-title">AI が書いたコード、<br>読んだだけで終わっていませんか？</h2>
+      <div class="problem-body">
+        <p>AI と開発していると、動くコードが一瞬で手に入ります。そのぶん、自分の手で書く機会がなくなります。</p>
+        <ul class="plain">
+          <li>レビューして分かったつもりでも、何も見ずには書けない</li>
+          <li>写経しようとエディタに書き写すと、ファイルの行き来やインデント、括弧の自動補完がじゃまをする</li>
+          <li>タイピング練習のサイトでは、自分のプロジェクトのコードは打てない</li>
+        </ul>
+        <p class="problem-answer">SumiRE は、自分のフォルダのコードを、そのまま写経のお手本にします。</p>
+      </div>
+    </section>
+
+    <section id="how" class="how" aria-labelledby="how-title">
+      <h2 id="how-title" class="section-title">開いて、なぞって、めくる</h2>
+      <ol class="steps">
+        <li class="step">
+          <div class="step-text">
+            <h3><span class="step-no" aria-hidden="true">1</span>開く</h3>
+            <p>なぞりたいフォルダで <code>sumire</code> と打ちます。ブラウザが開き、中のスクリプトが 1 ファイル 1 ページのノートになります。</p>
+          </div>
+          <pre class="term" aria-label="ターミナルでの操作の例"><code><span class="term-prompt">~/komorebi-reserve $</span> sumire
+<span class="term-out">SumiRE: ~/komorebi-reserve
+  5 ファイル → http://localhost:4848/
+  終了するには Ctrl+C</span></code></pre>
+        </li>
+        <li class="step">
+          <div class="step-text">
+            <h3><span class="step-no" aria-hidden="true">2</span>なぞる</h3>
+            <p>薄く表示されたコードの上に、そのまま打ちます。お手本と打つ場所が同じなので、目を動かしません。正しく打てた文字には色がつき、打ち間違えた文字は赤いまま残ります。Backspace で消して打ち直します。</p>
+          </div>
+          <figure class="shot">
+            <video src="images/loop-type.mp4" poster="images/loop-type-poster.webp" width="1280" height="760" muted loop playsinline preload="none" data-autoplay aria-label="薄いコードの上から 1 行打つ様子。from を form と打ち間違えて赤くなり、Backspace で直して最後まで打つ"></video>
+            <figcaption>打ち間違えた form を消して、from と打ち直す</figcaption>
+          </figure>
+        </li>
+        <li class="step">
+          <div class="step-text">
+            <h3><span class="step-no" aria-hidden="true">3</span>めくる</h3>
+            <p>最後の行まで打って Enter を押すと、次のファイルへめくれます。打ち終えたファイルには ✓ が付き、下のバーの右端で進み具合が分かります。途中のファイルに戻っても、続きから打てます。</p>
+          </div>
+          <div class="step-shots">
+            <figure class="shot">
+              <img src="images/done.webp" width="2560" height="1520" loading="lazy" alt="types.ts を最後まで打ち終えた画面。すべての行に色がつき、ファイル名の横に ✓、下のバーに 100% と表示されている">
+              <figcaption>1 ファイル打ち終えたところ</figcaption>
+            </figure>
+            <figure class="shot shot-bar">
+              <img src="images/status.webp" width="2560" height="52" loading="lazy" alt="下のバー。左に今の行と打てた行の数、右に打った文字数と進み具合 67%">
+              <figcaption>右端の数字が、開いているファイルの進み具合</figcaption>
+            </figure>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="detail" aria-labelledby="detail-title">
+      <h2 id="detail-title" class="section-title">打つことだけに、手を使う</h2>
+      <div class="detail-list">
+        <div class="detail-item">
+          <div class="detail-text">
+            <h3>打たなくていいものは、飛ばす</h3>
+            <p>行頭のインデント、空行、コメントの行は、カーソルが自動で飛び越えます。コメントも打ちたいときは、上のボタンで切り替えられます。</p>
+          </div>
+          <figure class="shot">
+            <img src="images/skip.webp" width="2560" height="694" loading="lazy" alt="27 行目のコメント行は打たずに飛ばされ、28 行目と 29 行目を打ち終えたところ。行末に Enter の印が出ている">
+          </figure>
+        </div>
+        <div class="detail-item">
+          <div class="detail-text">
+            <h3>間違えた場所が、見える</h3>
+            <p>打ち間違えた文字は、赤いまま残ります。赤い文字が残っているうちは、次の行へ進みません。</p>
+          </div>
+          <figure class="shot">
+            <img src="images/typo.webp" width="2560" height="432" loading="lazy" alt="existing の s を d と打ち間違え、その 1 文字だけが赤く残っている行">
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="sumi" aria-labelledby="sumi-title">
+      <div class="sumi-text">
+        <h2 id="sumi-title">夜は、Dark+ の配色で</h2>
+        <p>配色は、OS に合わせる・夜・昼の 3 つから選べます。打ち終えた行は VS Code の Dark+ と同じ色になります。</p>
+      </div>
+      <figure class="shot">
+        <img src="images/night.webp" width="2560" height="1520" loading="lazy" alt="夜の配色の SumiRE。打ち終えた行は Dark+ の色で、13 行目の途中まで打ち、その先は薄く表示されている">
+      </figure>
+    </section>
+
+    <section class="name" aria-labelledby="name-title">
+      <h2 id="name-title" class="section-title">名前のこと</h2>
+      <div class="name-grid">
+        <div class="name-item">
+          <p class="name-word" lang="ja">墨入れ</p>
+          <p>下書きの上から、墨で清書すること。薄いコードの上から打ち、色を乗せていく使い方そのものです。</p>
+        </div>
+        <div class="name-item">
+          <p class="name-word name-violet" lang="ja">菫</p>
+          <p>花のすみれ。同じ作者の HanaME（花見）と対になる道具です。SumiRE は「すみぃれ」と読みます。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="start" class="start" aria-labelledby="start-title">
+      <h2 id="start-title" class="section-title">はじめかた</h2>
+      <div class="start-grid">
+        <div class="need">
+          <h3>必要なもの</h3>
+          <ul class="plain">
+            <li>Node.js 22.23.4 / 24.22.1 / 26.12.1 以降</li>
+            <li>ブラウザ（Chrome・Edge・Firefox・Safari）</li>
+          </ul>
+          <p class="need-note">打った内容は保存しません。ブラウザを再読み込みすると、最初からになります。</p>
+        </div>
+        <ol class="commands">
+          <li>
+            <p>インストールします。画面はビルド済みなので、すぐに使えます。</p>
+            <pre><code>git clone https://github.com/HarutarouKawamoto/sumire.git
+cd sumire
+npm install
+npm link</code></pre>
+          </li>
+          <li>
+            <p>まずは、clone したフォルダに入っている小さなサンプルで試せます。</p>
+            <pre><code>sumire sample</code></pre>
+          </li>
+          <li>
+            <p>自分のプロジェクトでは、なぞりたいフォルダで起動します。ファイルを指定すると、そのページから始まります。</p>
+            <pre><code>cd your-project
+sumire
+sumire src/main.ts</code></pre>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="pair" aria-labelledby="pair-title">
+      <h2 id="pair-title" class="section-title">頭で理解して、指で覚える</h2>
+      <div class="pair-grid">
+        <a class="pair-item" href="https://harutaroukawamoto.github.io/haname/">
+          <p class="pair-name">HanaME<span>花見</span></p>
+          <p>AI が書いた .md を読んで、質問して、頭で理解する。</p>
+          <span class="pair-go">HanaME のサイトへ</span>
+        </a>
+        <div class="pair-item is-here">
+          <p class="pair-name">SumiRE<span>墨入れ／菫</span></p>
+          <p>AI が書いたコードを上からなぞって打ち、指で覚える。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>SumiRE（墨入れ／菫）は <a href="https://github.com/HarutarouKawamoto">HarutarouKawamoto</a> が作っています。MIT ライセンス。</p>
+    <p><a href="https://github.com/HarutarouKawamoto/sumire">github.com/HarutarouKawamoto/sumire</a></p>
+  </footer>
+
+  <script>
+    (() => {
+      const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 見出しの墨入れ：薄い下書きの文字に、1 文字ずつ墨を乗せる（最初の 1 回だけ）
+      const title = document.querySelector('.ink');
+      if (title && !still) {
+        const chars = [];
+        for (const line of title.querySelectorAll('.ink-line')) {
+          const text = line.textContent;
+          line.textContent = '';
+          for (const ch of text) {
+            const s = document.createElement('span');
+            s.className = 'ch';
+            s.textContent = ch;
+            s.setAttribute('aria-hidden', 'true');
+            line.append(s);
+            chars.push(s);
+          }
+        }
+        const caret = document.createElement('span');
+        caret.className = 'caret';
+        caret.setAttribute('aria-hidden', 'true');
+        title.classList.add('is-drafting');
+        let i = 0;
+        const step = () => {
+          if (i > 0) chars[i - 1].classList.add('is-inked');
+          if (i < chars.length) {
+            chars[i].before(caret);
+            i++;
+            setTimeout(step, chars[i - 1].textContent === '、' ? 240 : 85);
+          } else {
+            chars.at(-1).after(caret);
+            setTimeout(() => caret.classList.add('is-done'), 1400);
+          }
+        };
+        setTimeout(step, 450);
+      }
+
+      // ループ動画は、画面に入ったときだけ再生する。動きを減らす設定なら、自動では再生しない
+      const videos = document.querySelectorAll('video[data-autoplay]');
+      if (still) { videos.forEach((v) => { v.controls = true; }); return; }
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          const v = e.target;
+          if (e.isIntersecting) { v.preload = 'auto'; v.play().catch(() => { v.controls = true; }); }
+          else v.pause();
+        }
+      }, { threshold: 0.4 });
+      videos.forEach((v) => io.observe(v));
+    })();
+  </script>
+</body>
+</html>

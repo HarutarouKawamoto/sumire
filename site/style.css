@@ -1,0 +1,252 @@
+/* SumiRE（墨入れ／菫）紹介サイト
+   半紙と墨。薄墨の下書きに墨を入れていく。菫色は、カーソルとリンクと花の名前だけ。 */
+
+:root {
+  --hanshi: #f8f8f5;     /* 半紙 */
+  --hanshi-low: #efeeea;
+  --sumi: #1f1d1c;       /* 墨 */
+  --sumi-raise: #2b2927;
+  --sumi-line: #403d3a;
+  --usuzumi: #b3afa9;    /* 薄墨：下書き・これから打つ文字 */
+  --nezumi: #5f5b56;     /* 本文の補足 */
+  --line: #dcdad4;
+  --sumire: #6a4f9e;     /* 菫色 */
+  --sumire-light: #b9a6e0;
+  --shu: #c0392b;        /* 打ち間違い */
+
+  --display: "Kaisei Tokumin", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+  --sans: "IBM Plex Sans JP", "Yu Gothic", "YuGothic", "Hiragino Sans", sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, "SFMono-Regular", Menlo, monospace;
+
+  --gutter: clamp(16px, 5vw, 56px);
+  --wide: 1120px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--hanshi);
+  color: var(--sumi);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  letter-spacing: .02em;
+}
+
+img, video { display: block; max-width: 100%; height: auto; }
+a { color: var(--sumire); text-underline-offset: .22em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--sumire); outline-offset: 3px; border-radius: 2px; }
+
+h1, h2, h3 { font-family: var(--display); font-weight: 800; line-height: 1.4; margin: 0; letter-spacing: .02em; }
+p { margin: 0; }
+p + p { margin-top: 1em; }
+code { font-family: var(--mono); font-size: .88em; letter-spacing: 0; }
+p code { background: var(--hanshi-low); padding: .08em .35em; border-radius: 3px; }
+
+.skip { position: absolute; left: var(--gutter); top: -100px; z-index: 10; background: var(--sumi); color: var(--hanshi); padding: .5em 1em; border-radius: 3px; }
+.skip:focus { top: 12px; }
+
+/* ---------- ヘッダー ---------- */
+.top {
+  max-width: calc(var(--wide) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 22px var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.mark { font-family: var(--display); font-weight: 800; font-size: 1.4rem; color: var(--sumi); text-decoration: none; letter-spacing: .01em; }
+.mark span { color: var(--sumire); }
+.top nav { display: flex; gap: clamp(14px, 3vw, 32px); font-size: .9rem; }
+.top nav a { color: var(--nezumi); text-decoration: none; }
+.top nav a:hover { color: var(--sumire); text-decoration: underline; }
+
+/* ---------- 共通の枠 ---------- */
+main > section, .foot { padding-inline: var(--gutter); }
+main > section > *, .foot > * { max-width: var(--wide); margin-inline: auto; }
+
+.section-title { font-size: clamp(1.6rem, 1.2rem + 1.5vw, 2.25rem); margin-bottom: clamp(32px, 5vw, 56px); }
+
+.shot { margin: 0; }
+main > section > .shot { margin-inline: auto; }
+.shot img, .shot video {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0 1px 2px rgb(31 29 28 / .05), 0 26px 50px -34px rgb(31 29 28 / .45);
+}
+.shot figcaption { margin-top: .7em; font-size: .875rem; line-height: 1.7; color: var(--nezumi); }
+
+.plain { margin: 1.1em 0; padding: 0; list-style: none; }
+.plain li { position: relative; padding-left: 1.4em; }
+.plain li + li { margin-top: .4em; }
+.plain li::before { content: ""; position: absolute; left: .15em; top: .9em; width: .7em; height: 2px; background: var(--sumi); border-radius: 1px; }
+
+/* ---------- ヒーロー：墨入れの見出し ---------- */
+.hero { padding-top: clamp(32px, 7vw, 96px); padding-bottom: clamp(80px, 11vw, 144px); }
+.ink {
+  font-size: clamp(2.05rem, .9rem + 5.2vw, 5.1rem);
+  line-height: 1.32;
+  letter-spacing: .01em;
+}
+.ink-line { display: block; position: relative; padding-left: 1.7em; }
+@media (min-width: 1240px) { .ink-line { padding-left: 0; } }
+/* 行番号：エディタの左端と同じ位置づけ */
+.ink-line::before {
+  content: attr(data-no);
+  position: absolute; left: 0; top: .5em;
+  width: 1.1em;
+  font-family: var(--mono); font-weight: 400;
+  font-size: .3em; line-height: 1;
+  color: var(--usuzumi);
+  text-align: right;
+}
+@media (min-width: 1240px) { .ink-line::before { left: -2.4em; width: 1.6em; font-size: .24em; top: .7em; } }
+
+.ink.is-drafting .ch { color: var(--usuzumi); transition: color .28s ease-out; }
+.ink.is-drafting .ch.is-inked { color: var(--sumi); }
+.caret {
+  display: inline-block;
+  width: .055em; height: .92em;
+  margin: 0 .01em;
+  vertical-align: -.1em;
+  background: var(--sumire);
+  animation: blink 1.05s steps(1) infinite;
+}
+.caret.is-done { animation: none; opacity: 0; transition: opacity .6s; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.hero-body {
+  display: grid; gap: 24px 64px;
+  margin-top: clamp(28px, 4vw, 48px);
+}
+@media (min-width: 900px) { .hero-body { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; } }
+.hero-lead { max-width: 34em; color: var(--nezumi); }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+@media (min-width: 900px) { .hero-actions { justify-content: flex-end; } }
+.btn { display: inline-block; background: var(--sumi); color: var(--hanshi); padding: .78em 1.5em; border-radius: 3px; font-weight: 500; text-decoration: none; }
+.btn:hover { background: #3a3734; }
+
+.hero > .hero-shot { margin-top: clamp(48px, 7vw, 88px); }
+
+/* ---------- 問い ---------- */
+.problem { padding-bottom: clamp(88px, 12vw, 160px); }
+.problem h2 { font-size: clamp(1.55rem, 1.15rem + 1.6vw, 2.25rem); margin-bottom: 1em; }
+.problem-body { max-width: 40em; margin-left: max(0px, calc((100% - var(--wide)) / 2)); }
+@media (min-width: 900px) { .problem-body { padding-left: clamp(0px, 8vw, 160px); max-width: calc(40em + 160px); } }
+.problem-answer { font-weight: 700; }
+
+/* ---------- 使い方 ---------- */
+.how { padding-bottom: clamp(88px, 12vw, 160px); }
+.steps { list-style: none; margin: 0 auto; padding: 0; }
+.step { display: grid; gap: 28px 64px; }
+.step > * { min-width: 0; }
+.step + .step { margin-top: clamp(72px, 10vw, 128px); }
+@media (min-width: 900px) {
+  .step { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: start; }
+  .step-text { position: sticky; top: 32px; }
+}
+.step h3 { display: flex; align-items: baseline; gap: .5em; font-size: clamp(1.35rem, 1.1rem + .8vw, 1.65rem); margin-bottom: .7em; }
+.step-no { font-size: 2em; line-height: 1; color: var(--usuzumi); min-width: .7em; }
+.step-shots { display: grid; gap: 32px; }
+.shot-bar img { border-radius: 2px; }
+
+.term {
+  margin: 0;
+  background: var(--sumi);
+  color: #e9e6e1;
+  border-radius: 4px;
+  padding: 1.3em 1.5em;
+  font-family: var(--mono);
+  font-size: .92rem;
+  line-height: 1.8;
+  overflow-x: auto;
+}
+.term code { font-size: 1em; }
+.term-prompt { color: var(--sumire-light); }
+.term-out { color: #a8a39c; }
+
+/* ---------- 細部 ---------- */
+.detail { padding-bottom: clamp(96px, 12vw, 160px); }
+.detail-list { display: grid; gap: clamp(56px, 8vw, 96px); }
+.detail-item { display: grid; gap: 24px 64px; }
+.detail-item > * { min-width: 0; }
+@media (min-width: 900px) { .detail-item { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); align-items: center; } }
+.detail-text h3 { font-size: 1.3rem; margin-bottom: .55em; }
+.detail-text p { color: var(--nezumi); max-width: 26em; }
+
+/* ---------- 墨の帯（夜の配色） ---------- */
+.sumi {
+  background: var(--sumi);
+  color: #ece9e4;
+  padding-top: clamp(72px, 10vw, 128px);
+  padding-bottom: clamp(72px, 10vw, 128px);
+}
+.sumi-text { margin-bottom: clamp(32px, 5vw, 56px); }
+.sumi-text h2 { font-size: clamp(1.5rem, 1.15rem + 1.4vw, 2.1rem); margin-bottom: .5em; }
+.sumi-text p { color: #a8a39c; max-width: 34em; }
+.sumi .shot img { border-color: var(--sumi-line); background: #1e1e1e; box-shadow: 0 30px 60px -36px rgb(0 0 0 / .8); }
+
+/* ---------- 名前 ---------- */
+.name { padding-top: clamp(96px, 12vw, 160px); padding-bottom: clamp(96px, 12vw, 160px); }
+.name-grid { display: grid; gap: 48px 72px; }
+@media (min-width: 760px) { .name-grid { grid-template-columns: 1fr 1fr; } }
+.name-word {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(3.2rem, 2rem + 5vw, 5.6rem);
+  line-height: 1.1; letter-spacing: .04em;
+  margin-bottom: .3em;
+}
+.name-violet { color: var(--sumire); }
+.name-item p:not(.name-word) { color: var(--nezumi); max-width: 24em; }
+
+/* ---------- はじめかた ---------- */
+.start { padding-bottom: clamp(96px, 12vw, 160px); }
+.start-grid { display: grid; gap: 40px 72px; }
+.start-grid > * { min-width: 0; }
+@media (min-width: 900px) { .start-grid { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+.need h3 { font-size: 1.15rem; }
+.need .plain li { color: var(--nezumi); }
+.need-note { font-size: .9rem; color: var(--nezumi); border-left: 2px solid var(--line); padding-left: 1em; }
+.commands { margin: 0; padding-left: 1.4em; }
+.commands li { padding-left: .3em; }
+.commands li::marker { font-family: var(--display); font-weight: 800; color: var(--sumi); }
+.commands li + li { margin-top: 2em; }
+.commands pre {
+  margin: .8em 0 0;
+  background: var(--hanshi-low);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1em 1.2em;
+  overflow-x: auto;
+  font-size: .9rem;
+  line-height: 1.75;
+}
+.commands pre code { font-size: 1em; }
+
+/* ---------- 対 ---------- */
+.pair { padding-bottom: clamp(96px, 12vw, 144px); }
+.pair-grid { display: grid; gap: 20px; }
+@media (min-width: 760px) { .pair-grid { grid-template-columns: 1fr 1fr; } }
+.pair-item { display: block; border: 1px solid var(--line); border-radius: 4px; padding: 28px 30px 30px; color: var(--sumi); text-decoration: none; background: #fff; }
+.pair-item p + p { margin-top: .6em; color: var(--nezumi); }
+.pair-name { font-family: var(--display); font-weight: 800; font-size: 1.6rem; }
+.pair-name span { font-size: .55em; margin-left: .7em; color: var(--nezumi); font-weight: 500; letter-spacing: .1em; }
+.pair-item.is-here { background: transparent; border-style: dashed; }
+a.pair-item { transition: border-color .2s; }
+a.pair-item:hover { border-color: var(--sumi); }
+.pair-go { display: inline-block; margin-top: 1.2em; color: var(--sumire); text-decoration: underline; text-underline-offset: .22em; }
+
+.foot { border-top: 1px solid var(--line); padding-top: 32px; padding-bottom: 48px; font-size: .85rem; color: var(--nezumi); }
+.foot p + p { margin-top: .4em; }
+
+@media (max-width: 599px) {
+  body { font-size: 1rem; }
+  .top nav a[href="#how"] { display: none; }
+  .problem h2 br { display: none; }
+  .ink { font-size: clamp(1.6rem, 7.4vw, 2.05rem); }
+  .ink-line { padding-left: 1.25em; }
+}
